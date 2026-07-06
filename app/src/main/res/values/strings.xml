@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">K5 Radio-cast</string>
+    <string name="app_subtitle">Velg en kanal og cast direkte til enheten din</string>
+    <string name="cast_icon_description">Cast</string>
+    <string name="live_label">Direkte</string>
+    <string name="casting_label">Caster nå</string>
+    <string name="now_playing_label">CASTER NÅ</string>
+    <string name="now_playing_buffering_label">BUFRER…</string>
+    <string name="buffering_label">Bufrer…</string>
+    <string name="stop_casting_description">Stopp casting</string>
+    <string name="cast_connect_failed">Klarte ikke å koble til enheten</string>
+    <string name="cast_playback_error">Kunne ikke spille av strømmen på enheten</string>
+    <string name="cast_unavailable">Cast er ikke tilgjengelig på denne enheten</string>
+</resources>
