@@ -1,10 +1,10 @@
 # K5 Radio-cast
 
-An Android app for browsing a list of live radio stations and casting them to a Chromecast device via Google Cast.
+An Android app for browsing a grid of live radio stations and casting them to a Chromecast device via Google Cast.
 
 ## Features
 
-- List of live radio streams with per-station accent colors
+- Grid of tappable station buttons, each showing the station's logo
 - Cast to any Chromecast-compatible device (Google Cast SDK)
 - Now Playing bar with live/buffering state
 - Graceful fallback when Google Play Services / Cast isn't available on the device
@@ -37,8 +37,11 @@ Without this file present, `assembleRelease` will produce an unsigned APK.
 
 ```
 app/src/main/java/com/svendsrud/castradio/
-├── MainActivity.kt              # station list, Cast session handling, Now Playing bar
+├── MainActivity.kt              # station grid, Cast session handling, Now Playing bar
 ├── CastOptionsProvider.kt        # Cast SDK options (receiver app id, session resume)
-├── model/RadioStation.kt         # station data + hardcoded station list
-└── ui/StationsAdapter.kt         # RecyclerView adapter for the station list
+├── model/RadioStation.kt         # station data + hardcoded station list (incl. logo resource)
+└── ui/StationsAdapter.kt         # RecyclerView adapter for the station button grid
+
+app/src/main/res/drawable-nodpi/  # station logo bitmaps used by the app
+logo/                             # original source logo files (reference/source of truth)
 ```
