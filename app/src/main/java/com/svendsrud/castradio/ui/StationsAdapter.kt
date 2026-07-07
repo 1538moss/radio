@@ -43,7 +43,7 @@ class StationsAdapter(
 
     class StationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val card: MaterialCardView = itemView as MaterialCardView
-        val avatar: TextView = itemView.findViewById(R.id.station_avatar)
+        val logo: ImageView = itemView.findViewById(R.id.station_logo)
         val nameText: TextView = itemView.findViewById(R.id.station_name)
         val statusText: TextView = itemView.findViewById(R.id.station_status)
         val liveDot: View = itemView.findViewById(R.id.station_live_dot)
@@ -64,8 +64,7 @@ class StationsAdapter(
         val accent = Color.parseColor(station.accentColor)
 
         holder.nameText.text = station.name
-        holder.avatar.text = station.name.take(1).uppercase()
-        holder.avatar.background = gradientCircle(accent)
+        holder.logo.setImageResource(station.logoRes)
 
         holder.pulseAnimator?.cancel()
         val context = holder.itemView.context
@@ -133,21 +132,6 @@ class StationsAdapter(
     }
 
     override fun getItemCount(): Int = stations.size
-
-    private fun gradientCircle(accent: Int): GradientDrawable {
-        val lighter = lighten(accent, 0.35f)
-        return GradientDrawable(GradientDrawable.Orientation.TL_BR, intArrayOf(lighter, accent)).apply {
-            shape = GradientDrawable.OVAL
-        }
-    }
-
-    private fun lighten(color: Int, factor: Float): Int {
-        val hsv = FloatArray(3)
-        Color.colorToHSV(color, hsv)
-        hsv[1] = (hsv[1] * (1f - factor)).coerceIn(0f, 1f)
-        hsv[2] = (hsv[2] + (1f - hsv[2]) * factor).coerceIn(0f, 1f)
-        return Color.HSVToColor(hsv)
-    }
 
     private fun isReducedMotionEnabled(context: Context): Boolean {
         val scale = Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f)

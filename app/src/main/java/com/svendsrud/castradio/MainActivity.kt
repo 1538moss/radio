@@ -1,7 +1,5 @@
 package com.svendsrud.castradio
 
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
@@ -11,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.mediarouter.app.MediaRouteButton
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.cast.MediaInfo
 import com.google.android.gms.cast.MediaLoadRequestData
@@ -30,13 +28,14 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val PENDING_STATION_TIMEOUT_MS = 2 * 60 * 1000L
+        private const val STATION_GRID_SPAN_COUNT = 2
     }
 
     private var castContext: CastContext? = null
     private lateinit var mediaRouteButton: MediaRouteButton
     private lateinit var adapter: StationsAdapter
     private lateinit var nowPlayingBar: View
-    private lateinit var nowPlayingAvatar: TextView
+    private lateinit var nowPlayingAvatar: ImageView
     private lateinit var nowPlayingBufferSpinner: ProgressBar
     private lateinit var nowPlayingLabel: TextView
     private lateinit var nowPlayingName: TextView
@@ -101,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         // Station list must render even if Google Play Services / Cast init fails on this device.
         adapter = StationsAdapter(StationRepository.stations) { station -> onStationTapped(station) }
         findViewById<RecyclerView>(R.id.stations_list).apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = GridLayoutManager(this@MainActivity, STATION_GRID_SPAN_COUNT)
             adapter = this@MainActivity.adapter
         }
 
@@ -194,12 +193,7 @@ class MainActivity : AppCompatActivity() {
         if (station == null) {
             nowPlayingBar.visibility = View.GONE
         } else {
-            val accent = Color.parseColor(station.accentColor)
-            nowPlayingAvatar.text = station.name.take(1).uppercase()
-            nowPlayingAvatar.background = GradientDrawable().apply {
-                shape = GradientDrawable.OVAL
-                setColor(accent)
-            }
+            nowPlayingAvatar.setImageResource(station.logoRes)
             nowPlayingName.text = station.name
             nowPlayingBar.visibility = View.VISIBLE
             updateNowPlayingBuffering(buffering)
