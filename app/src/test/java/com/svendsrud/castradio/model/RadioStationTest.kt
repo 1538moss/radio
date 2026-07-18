@@ -31,9 +31,10 @@ class RadioStationTest {
     fun `accent colors are valid 6-digit hex`() {
         val hexPattern = Regex("^#[0-9A-Fa-f]{6}$")
         stations.forEach { station ->
+            val hex = "#%06X".format(station.accentColor and 0xFFFFFF)
             assertTrue(
                 "${station.name} has invalid accentColor: ${station.accentColor}",
-                hexPattern.matches(station.accentColor)
+                hexPattern.matches(hex)
             )
         }
     }
